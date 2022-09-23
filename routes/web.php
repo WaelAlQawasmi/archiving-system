@@ -37,7 +37,8 @@ Route::get('/admin/dashboard',function(){
     return view('admin');
 })->middleware('auth:admin');
 
-Route::post('/home/editprofile/',[UserProfileController::class,'store'])->name('home.editprofile');
+Route::put('/home/editprofile/',[UserProfileController::class,'update'])->name('home.editprofile');
+
 
 
 

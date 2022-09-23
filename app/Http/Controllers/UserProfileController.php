@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\File; 
+use Illuminate\Support\Facades\Auth;
 use App\Models\user_profile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -66,7 +68,7 @@ class UserProfileController extends Controller
      */
     public function edit(user_profile $user_profile)
     {
-        //
+        
     }
 
     /**
@@ -76,9 +78,25 @@ class UserProfileController extends Controller
      * @param  \App\Models\user_profile  $user_profile
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, user_profile $user_profile)
+    public function update(Request $request)
     {
-        //
+        $user=user_profile::where('user_id','=',Auth::user()->id)->first();
+        if ($request->hasFile('image')) {
+            $img = $request->file('image');
+            $extention = $img->getClientOriginalExtension();
+            $fileName = time() . '.' . $extention;
+            $img->move('uploded/', $fileName);
+            if(isset($user->image))
+            File::delete('uploded/'.$user->image);
+        }
+        else{
+            $fileName = $user->image;
+        }
+        
+        $user->update(['position'=>$request['position'],'berthday'=>$request['berthday'],'image'=>$fileName]);
+        return redirect('home');
+
+        
     }
 
     /**
