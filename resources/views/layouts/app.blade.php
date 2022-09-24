@@ -43,8 +43,10 @@
 
                     </ul>
 
+             
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">
+                       
                         <!-- Authentication Links -->
                         @guest
                             @if (Route::has('login'))
@@ -59,6 +61,23 @@
                                 </li>
                             @endif
                         @else
+
+                        <div class="collapse navbar-collapse" id="navbarNav">
+                            <ul class="navbar-nav">
+                              <li class="nav-item active">
+                                <a class="nav-link" href="#">الرئيسية <span class="sr-only">(current)</span></a>
+                              </li>
+                              <li class="nav-item">
+                                <a class="nav-link" href="#">الملفات</a>
+                              </li>
+                              <li class="nav-item">
+                                <a class="nav-link" href="{{route('branch')}}">البيانات</a>
+                              </li>
+                           
+                            </ul>
+                          </div>
+
+
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }}
