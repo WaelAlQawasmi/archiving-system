@@ -78,7 +78,7 @@
                                 @method('DELETE')
                                 <button class="btn btn-danger dropdown-item" type="submit">Delete</button>
                               </form>
-                      
+                    </div>
                     </div>
                     <div class="d-flex align-items-center">
                         <div class="flex-1 ms-3">
