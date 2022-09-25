@@ -102,9 +102,36 @@ class BranchesController extends Controller
      * @param  \App\Models\Branches  $branches
      * @return \Illuminate\Http\Response
      */
+
+     
     public function destroy( $id)
     {
        Branches::find($id)->delete();
        return redirect('branch')->with('status', 'تم الحذف بنجاح');  // -> resources/views/stocks/index.blade.php
+    }
+
+
+    
+    public function hdelete( $id)
+    {
+        $Branche= Branches::withTrashed()->where('id' ,  $id )->first() ;
+        $Branche->forceDelete();
+        return redirect()->back() ;
+    }
+
+    public function restore( $id)
+    {
+        $Branche = Branches::withTrashed()->where('id' ,  $id )->first() ;
+        $Branche->restore();
+        return redirect()->back() ;
+    }
+
+
+    public function branchesTrashed()
+    {
+       
+
+        $data= Branches::onlyTrashed()->get();
+        return view('cards',['data' => $data]);
     }
 }
