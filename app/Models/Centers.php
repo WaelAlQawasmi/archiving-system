@@ -9,9 +9,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Centers extends Model
 {
     use HasFactory;
-
-    use SoftDeletes;
     protected $dates = ['deleted_at'];
+    use SoftDeletes;
+
+
     protected $fillable = ['name', 'manegere', 'phone','branches_id'];
 
     public function branch()

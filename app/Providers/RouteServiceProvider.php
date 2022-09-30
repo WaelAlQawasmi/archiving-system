@@ -53,8 +53,14 @@ class RouteServiceProvider extends ServiceProvider
             Route::middleware('web')
                 ->namespace($this->namespace)
                 ->group(base_path('routes/branches.php'));
-        });
-    }
+
+            Route::middleware('web')
+                ->namespace($this->namespace)
+                ->group(base_path('routes/certers.php'));
+                   
+     
+    });
+}
 
     /**
      * Configure the rate limiters for the application.
