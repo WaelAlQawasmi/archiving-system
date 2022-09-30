@@ -37,6 +37,9 @@
             </div>
         </div>
         <div class="col-md-6">
+            
+            @if (isset($setting['Trached']))
+
             <div class="d-flex flex-wrap align-items-center justify-content-end gap-2 mb-3">
                 <div>
                     <ul class="nav nav-pills">
@@ -49,16 +52,22 @@
                     </ul>
                 </div>
                 <div>
-                    <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"  data-bs-whatever="@mdo" class="btn btn-primary"  data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo" ><i class="bx bx-plus me-1"></i> Add New</button>
+                
+                        
+             
+                    <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"  data-bs-whatever="@mdo" class="btn btn-primary"  data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo" ><i class="bx bx-plus me-1"></i>  اضافة جديد</button>
                 </div>
                 <div class="dropdown">
                     <a class="btn btn-link text-muted py-1 font-size-16 shadow-none dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bx bx-dots-horizontal-rounded"></i></a>
                     <ul class="dropdown-menu dropdown-menu-end">
-                        <li><a class="dropdown-item" href="{{route('branchesTrashed')}}">المحذوفات </a></li>
+                        <li><a class="dropdown-item" href="{{route($setting['Trached'])}}">المحذوفات </a></li>
 
                     </ul>
                 </div>
             </div>
+
+            @endif
+
         </div>
     </div>
     <div class="row">
@@ -71,11 +80,11 @@
                 <div class="card-body">
                     <div class="dropdown float-end">
                         <a class="text-muted dropdown-toggle font-size-16" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true"><i class="bx bx-dots-horizontal-rounded"></i></a>
-                        <div class="dropdown-menu dropdown-menu-end"><a class="dropdown-item" href="#">Edit</a>
-                            <form action="{{ route('branch.delete', $item['id'])}}" method="post">
+                        <div class="dropdown-menu dropdown-menu-end"><a class="dropdown-item" href="#">تعديل</a>
+                            <form action="{{ route($setting['delete'], $item['id'])}}" method="post">
                                 @csrf
                                 @method('DELETE')
-                                <button class="btn btn-danger dropdown-item" type="submit">Delete</button>
+                                <button class="btn btn-danger dropdown-item" type="submit">حذف</button>
                               </form>
                     </div>
                     </div>
@@ -89,7 +98,10 @@
                         <p class="text-muted mb-0 mt-2"><i class="mdi  mdi-account-circle font-size-15 align-middle pe-2 text-primary"></i> {{$item['manegere']}}</p>
                     </div>
                     <div class="d-flex gap-2 pt-4">
-                        <button type="button" class="btn btn-primary btn-sm w-50"><i class="bx bx-message-square-dots me-1"></i> Contact</button>
+                        @if (isset($setting['Trached']))
+                       
+                        <a href="{{ route($setting['open'], $item['id'])}}" class="btn btn-primary btn-sm w-50"><iconify-icon icon="mdi:location-enter"></iconify-icon> دخول</a>
+                  @endif
                     </div>
                 </div>
             </div>
@@ -100,7 +112,7 @@
     </div>
     <div class="row g-0 align-items-center pb-4">
 
-
+        <script src="https://code.iconify.design/iconify-icon/1.0.0/iconify-icon.min.js"></script>
 
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -110,14 +122,16 @@
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-              <form method="post" action="{{route('branch.add')}}">
+                @if (isset($setting['Trached']))
+              <form method="post" action="{{$setting['add']}}">
+                @endif
                 @csrf
                 <div class="mb-3">
-                  <label for="recipient-name" class="col-form-label">اسم الفرع:</label>
+                  <label for="recipient-name" class="col-form-label">الاسم :</label>
                   <input type="text" class="form-control"  name="name" id="recipient-name">
                 </div>
                 <div class="mb-3">
-                    <label for="recipient-name" class="col-form-label"> مدير الفرع:</label>
+                    <label for="recipient-name" class="col-form-label">المدير :</label>
                     <input type="text" class="form-control" name="manegere" id="recipient-name">
                   </div>
                   <div class="mb-3">

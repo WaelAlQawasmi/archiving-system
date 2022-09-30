@@ -15,7 +15,7 @@ class CreateCentersTable extends Migration
     {
         Schema::create('centers', function (Blueprint $table) {
             $table->id();
-            $table->bigint('branches_id');
+            $table->unsignedBigInteger('branches_id');
             $table->string('name');
             $table->text('manegere');
             $table->text('phone');

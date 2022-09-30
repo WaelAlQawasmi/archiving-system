@@ -21,7 +21,8 @@ class BranchesController extends Controller
     public function index()
     {
        $data= Branches::all();
-      return view('cards',['data' => $data]);
+       $setting=['Trached'=>'branchesTrashed','delete'=>'branch.delete','open'=>'certer','add'=>route('branch.add')];
+      return view('cards',['data' => $data ,'setting'=>$setting]);
     }
 
     /**
@@ -112,7 +113,7 @@ class BranchesController extends Controller
 
 
     
-    public function hdelete( $id)
+    public function hdelete($id)
     {
         $Branche= Branches::withTrashed()->where('id' ,  $id )->first() ;
         $Branche->forceDelete();
@@ -130,8 +131,8 @@ class BranchesController extends Controller
     public function branchesTrashed()
     {
        
-
+        $setting=['delete'=>'branch.hdelete'];
         $data= Branches::onlyTrashed()->get();
-        return view('cards',['data' => $data]);
+        return view('cards',['data' => $data,'setting'=>$setting]);
     }
 }
