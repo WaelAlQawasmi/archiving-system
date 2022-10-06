@@ -43,6 +43,19 @@ class LoginController extends Controller
     }
 
 
+    public function LoginApi(Request $request)
+    {
+        $this->validate($request, [
+            'email'   => 'required|email',
+            'password' => 'required'
+        ]);
+
+        if (Auth::attempt(['email'=>$request['email'],'password'=>$request['password']])){
+     $accessToken=Auth::user()->createToken('MyApp')->accessToken;
+     return response()->json(['token'=>$accessToken]);
+        }
+    }
+
     
     public function showAdminLoginForm()
     {
